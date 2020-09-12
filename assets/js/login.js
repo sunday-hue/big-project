@@ -38,7 +38,7 @@ $(function () {
             username: $("#form_reg [name=uname]").val(), password: $("#form_reg [name=pwd]").val()
         };
         $.post("/api/reguser", data, function (res) {
-            console.log(res);
+            // console.log(res);
             if (res.status !== 0) { return layer.msg(res.message) }
             layer.msg('注册成功')
             //当注册成功的时候，模拟人的点击行为，自动跳转到登陆界面
@@ -53,14 +53,13 @@ $(function () {
         var data = {
             username: $("#form_login [name=uname]").val(), password: $("#form_login [name=pwd]").val()
         };
-        console.log(data);
         $.ajax({
             url: '/api/login', data,
             method: 'POST',
             // 快速获取表单中的数据
 
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 if (res.status !== 0) {
                     return layer.msg('登录失败！')
                 }
@@ -68,7 +67,7 @@ $(function () {
                 // 将登录成功得到的 token 字符串，保存到 localStorage 中
                 localStorage.setItem('token', res.token)
                 // 跳转到后台主页
-                location.href = '../../index.html'
+                location.href = "../../index.html"
             }
         })
     })
