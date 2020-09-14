@@ -94,4 +94,28 @@ $(function () {
             }
         })
     })
+    // 删除按钮
+    //使用代理事件，给修改类别按钮绑定事件
+    $("body").on("click", '#btn-del', function () {
+        var id = $(this).attr("data-id")
+        // console.log(id);
+        // alert("ok")
+        layer.confirm('确定删除?', { icon: 3, title: '提示' }, function (index) {
+            $.ajax({
+                method: 'GET',
+                url: '/my/article/deletecate/' + id,
+                success: function (res) {
+                    if (res.status !== 0) return layer.msg("删除数据失败")
+                    layer.msg("删除数据成功")
+                    // console.log(res)
+                    layer.close(index);
+                    // 渲染修改图书之后的页面
+                    initSortData()
+                }
+            })
+
+        });
+
+
+    })
 })
