@@ -17,10 +17,10 @@ $(function () {
 
         }
     })
-    var data = {
-        oldPwd: $("[name=oldPwd]").val(),
-        newPwd: $("[name=newPwd]").val()
-    }
+    // var data = {
+    //     oldPwd: $(".layui-form [name='oldPwd']").val(),
+    //     newPwd: $(".layui-form [name='newPwd']").val()
+    // }
     // console.log($('.layui-form').serialize());
     // 在后台修改密码
     $(".layui-form").on("submit", function (e) {
@@ -29,9 +29,10 @@ $(function () {
         $.ajax({
             url: '/my/updatepwd',
             method: 'POST',
-            data: data,
-            // data: $('.layui-form').serialize(),
+            // data,
+            data: $('.layui-form').serialize(),
             success: function (res) {
+                console.log(res);
                 if (res.status !== 0) return layui.layer.msg('更新密码失败')
                 layui.layer.msg('更新密码成功')
                 // 重置表单是原生js方法
@@ -39,4 +40,5 @@ $(function () {
             }
         })
     })
+
 })
