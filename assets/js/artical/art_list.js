@@ -11,7 +11,7 @@ $(function () {
         var dt = new Date(data);
 
         var y = addZero(dt.getFullYear());
-        var m = addZero(dt.getMonth());
+        var m = addZero(dt.getMonth() + 1);
         var d = addZero(dt.getDate());
 
         var hh = addZero(dt.getHours());
@@ -109,6 +109,12 @@ $(function () {
     }
     //删除按钮事件
     $('tbody').on("click", '#btnDel', function () {
+        //获取删除按钮的个数
+        // console.log($("#btnDel"));
+        var len = $("#btnDel").length;
+        // console.log(len);
+
+        //获取删除按钮的id
         var id = $(this).attr("data-id")
         // console.log(id);
         layer.confirm('确认删除?', { icon: 3, title: '提示' }, function (index) {
@@ -120,7 +126,8 @@ $(function () {
                         return layer.msg("删除数据失败")
                     }
 
-                    //do something
+                    // 当完成最后一条数据删除的时候，下一页的数据渲染不出来
+                    //判断当删除完之后，是否还有剩余的数据，若没有，就让页码数减一，减一后再重新调用initList方法
 
 
                     initList()
@@ -129,5 +136,10 @@ $(function () {
             layer.close(index);
         });
 
+    })
+
+    //给编辑按钮绑定事件
+    $('tbody').on("click", "#btnEdit", function () {
+        location.href = '../../../artical/art_pub.html'
     })
 })
