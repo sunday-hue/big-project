@@ -10,7 +10,7 @@ $(function () {
     template.defaults.imports.formDatea = function (data) {
         var dt = new Date(data);
 
-        var y = addZero(dt.getFullYear());
+        var y = dt.getFullYear();
         var m = addZero(dt.getMonth() + 1);
         var d = addZero(dt.getDate());
 
@@ -25,7 +25,7 @@ $(function () {
         pagesize: 2,  //默认每个页面显示的数据是2条
         cate_id: '',  //默认文章的id是空
         state: ''  //默认文章的发布状态是空
-    };
+    }
 
     initList();
     initSort();
@@ -37,8 +37,8 @@ $(function () {
             data: q,
             success: function (res) {
                 // console.log(res);
-                // if (res.status !== 0) return layer.msg("获取图书列表失败")
-                // layer.msg("获取图书列表成功")
+                if (res.status !== 0) return layer.msg("获取图书列表失败")
+                layer.msg("获取图书列表成功")
                 // 当获取成功的时候，就把数据渲染到页面
                 var htmlStr = template("tpl-table", res)
                 $('tbody').html(htmlStr)
@@ -68,7 +68,8 @@ $(function () {
         })
     }
     //给表单筛选按钮绑定事件
-    $("#form_select").on('submit', function (e) {
+    $("#formSelect").on('submit', function (e) {
+        // console.log(1);
         e.preventDefault();
         var cate_id = $('[name=cate_id]').val()
         var state = $("[name=state]").val()
@@ -112,6 +113,7 @@ $(function () {
         //获取删除按钮的个数
         // console.log($("#btnDel"));
         var len = $("#btnDel").length;
+        // var len = $("#btnDel");
         // console.log(len);
 
         //获取删除按钮的id
@@ -128,7 +130,9 @@ $(function () {
 
                     // 当完成最后一条数据删除的时候，下一页的数据渲染不出来
                     //判断当删除完之后，是否还有剩余的数据，若没有，就让页码数减一，减一后再重新调用initList方法
-
+                    if (len === 1) {
+                        q.pagenum = q.pagenum === 1 ? 1 : q.pagenum - 1;
+                    }
 
                     initList()
                 }
@@ -140,6 +144,7 @@ $(function () {
 
     //给编辑按钮绑定事件
     $('tbody').on("click", "#btnEdit", function () {
+        //    获取后台数据，渲染到页面上
         location.href = '../../../artical/art_pub.html'
     })
 })

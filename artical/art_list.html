@@ -14,7 +14,7 @@
         <div class="layui-card-header">文章列表</div>
         <div class="layui-card-body">
             <!-- 筛选区域 -->
-            <form class="layui-form" id='form_select'>
+            <form class="layui-form" id='formSelect'>
                 <div class="layui-form-item layui-inline">
                     <select name="cate_id">
                     </select>
@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <button type="button" class="layui-btn  layui-inline">筛选</button>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
                 </div>
             </form>
 
@@ -76,10 +76,9 @@
 
     <!-- 定义下拉列表的模板引擎 -->
     <script type='text/html' id='tpl-sort'>
-
             <option value="">所有分类</option>
             {{each data}}
-            <option value="{{$value.Id}}">{{$value.name}}</option>
+                <option value="{{$value.Id}}">{{$value.name}}</option>
             {{/each}}
     </script>
 </body>
